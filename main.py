@@ -1,7 +1,8 @@
 import speech_recognition as sr
 import pyttsx3
 import pywhatkit
-
+import wikipedia
+import datetime
 
 
 listener = sr.Recognizer()
@@ -37,8 +38,17 @@ def run_atlas():
         song = command.replace('play', '')
         speak('playing ' + song)
         pywhatkit.playonyt(song)
-    elif 'hello' or 'hey'in command:
-        speak("Hello, How can I help")
+
+    elif 'time' in command:
+        time = datetime.datetime.now().strftime('%I:%M %p')
+        speak('The time is ' + time)
+
+
+    elif 'Workspaces' and 'Open' in command:
+        speak('Sure thing, what workspace shall I open. ')
+
+    elif 'exit' in command:
+        exit()
 
     else:
         speak('Please say the command again.')
