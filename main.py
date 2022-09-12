@@ -3,8 +3,29 @@ import pyttsx3
 import pywhatkit
 import wikipedia
 import datetime
+import time
 
-#global user_check
+global t
+#timer function
+atlas_call = 0
+def timer_set(t):
+
+    while t:
+        #Format Timer
+        mins, secs = divmod(t, 60)
+        timer = '{:02d}:{:02d}'.format(mins, secs)
+        #Print Current Time
+        print(timer, end="\r")
+        # wait one second
+        time.sleep(1)
+        t -= 1
+
+        print("Time Up!")
+        speak("Time is up.")
+
+
+    #Input time in seconds
+    t = input("Enter your desired time in seconds")
 
 #f.write(r"C:\PythonData\usercheck.txt", "a")
 
@@ -19,7 +40,7 @@ with open(r"C:\PythonData\usercheck.txt", "r") as f:
 #append
 
 with open(r"C:\PythonData\usercheck.txt", "a") as f:
-    f.write("\n This text was added using Append.")
+    f.write("\n 1")
 
 
 #read the appended text
@@ -32,11 +53,7 @@ with open(r"C:\PythonData\usercheck.txt", "r") as f:
 
 
 print(pull_user_check)
-if "User Signed in = 1" in pull_user_check:
-
-
-
-
+if " 1" in pull_user_check:
 
     listener = sr.Recognizer()
     engine = pyttsx3.init()
@@ -71,23 +88,29 @@ if "User Signed in = 1" in pull_user_check:
             song = command.replace('play', '')
             speak('playing ' + song)
             pywhatkit.playonyt(song)
+            atlas_call ++1
 
-        elif 'time' in command:
-            time = datetime.datetime.now().strftime('%I:%M %p')
-            speak('The time is ' + time)
+        elif 'timer' in command:
+            timer_set(int())
+
+
+
+
 
 
         elif 'Workspaces' and 'Open' in command:
             speak('Sure thing, what workspace shall I open. ')
-
+            atlas_call + +1
         elif 'exit' in command:
             exit()
+            atlas_call + +1
 
         else:
             speak('Please say the command again.')
+            atlas_call + +1
 
 
-    while True:
+    if atlas_call == 0:
         run_atlas()
 
 
