@@ -4,28 +4,10 @@ import pywhatkit
 import wikipedia
 import datetime
 import time
-
+import os
+import webbrowser
 global t
 #timer function
-atlas_call = 0
-def timer_set(t):
-
-    while t:
-        #Format Timer
-        mins, secs = divmod(t, 60)
-        timer = '{:02d}:{:02d}'.format(mins, secs)
-        #Print Current Time
-        print(timer, end="\r")
-        # wait one second
-        time.sleep(1)
-        t -= 1
-
-        print("Time Up!")
-        speak("Time is up.")
-
-
-    #Input time in seconds
-    t = input("Enter your desired time in seconds")
 
 #f.write(r"C:\PythonData\usercheck.txt", "a")
 
@@ -34,8 +16,8 @@ with open(r"C:\PythonData\usercheck.txt", "w") as f:
 
 #read
 
-with open(r"C:\PythonData\usercheck.txt", "r") as f:
-   print("New text:\n",f.read())
+#with open(r"C:\PythonData\usercheck.txt", "r") as f:
+  # print("New text:\n",f.read())
 
 #append
 
@@ -45,8 +27,10 @@ with open(r"C:\PythonData\usercheck.txt", "a") as f:
 
 #read the appended text
 
-with open(r"C:\PythonData\usercheck.txt", "r") as f:
-    print("Append:\n",f.read())
+#with open(r"C:\PythonData\usercheck.txt", "r") as f:
+   # print("Append:\n",f.read())
+
+
 
 with open(r"C:\PythonData\usercheck.txt", "r") as f:
     pull_user_check = open(r"C:\PythonData\usercheck.txt")
@@ -66,10 +50,11 @@ if " 1" in pull_user_check:
         engine.runAndWait()
 
 
-    def take_command():
+    def command_input_test():
         try:
             with sr.Microphone() as source:
                 print('listening...')
+                speak("Hello, I am ready for my next command")
                 voice = listener.listen(source)
                 command = listener.recognize_google(voice)
                 command = command.lower()
@@ -82,38 +67,81 @@ if " 1" in pull_user_check:
 
 
     def run_atlas():
-        command = take_command()
+        command = command_input_test()
         print(command)
         if 'play' in command:
             song = command.replace('play', '')
             speak('playing ' + song)
             pywhatkit.playonyt(song)
-            atlas_call ++1
 
         elif 'timer' in command:
-            timer_set(int())
+            print("Opening Timer")
+            os.startfile("C:\\Users\\Yuvi\\PycharmProjects\\Voice\\timer.py")
 
 
-
-
-
-
-        elif 'Workspaces' and 'Open' in command:
-            speak('Sure thing, what workspace shall I open. ')
-            atlas_call + +1
-        elif 'exit' in command:
+        elif "exit" in command:
             exit()
-            atlas_call + +1
+
+
+        elif 'to do list' in command:
+            speak("opening to do list")
+            os.startfile("C:\\Users\\Yuvi\\PycharmProjects\\Voice\\To-Do-List.py")
+
+        elif "Hello" in command:
+            speak("Hello, its a pleasure to be here")
+            run_atlas()
+
+        elif "who is " in command:
+            wikipedia.search(command)
+            speak(wikipedia.summary(command))
+
+        elif 'workspaces' in command:
+            speak('Sure thing, what workspace shall I open. ')
+            try:
+                with sr.Microphone() as source:
+                    print('listening for workspace...')
+                    voice = listener.listen(source)
+                    workspacecommand = listener.recognize_google(voice)
+                    workspacecommand = command.lower()
+                    if 'math' in workspacecommand:
+
+                        webbrowser.open('http://www.google.com/math')
+                        webbrowser.open("https://classroom.google.com/u/0/w/NDUwNDA4Nzc4MjU2/t/all")
+
+                    elif "english" in workspacecommand:
+                        webbrowser.open("https://classroom.google.com/u/0/c/NDUwNDA4NjY3MzY2")
+                        webbrowser.open('http://www.google.com/Google Drive')
+
+                    elif "tech " in workspacecommand:
+                        webbrowser.open("https://classroom.google.com/u/0/c/NDUwNDA4NzE0NjMz")
+
+                    elif "none" in workspacecommand:
+
+                        run_atlas()
+            except:
+                pass
+            return command
+
+
+
+
+
+
+
 
         else:
             speak('Please say the command again.')
-            atlas_call + +1
 
 
-    if atlas_call == 0:
+
+    while True:
         run_atlas()
 
 
 
 else:
     print("Hmm it seems you arent signed in, open the sign in file to gain acssess")
+
+
+
+    #Help from Programming Hero on Youtube
