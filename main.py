@@ -7,37 +7,15 @@ import time
 import os
 import webbrowser
 global t
-#timer function
+#Check
 
-#f.write(r"C:\PythonData\usercheck.txt", "a")
-
-with open(r"C:\PythonData\usercheck.txt", "w") as f:
-    f.write(" ")
-
-#read
-
-#with open(r"C:\PythonData\usercheck.txt", "r") as f:
-  # print("New text:\n",f.read())
-
-#append
-
-with open(r"C:\PythonData\usercheck.txt", "a") as f:
-    f.write("\n 1")
-
-
-#read the appended text
-
-#with open(r"C:\PythonData\usercheck.txt", "r") as f:
-   # print("Append:\n",f.read())
+check = 1
 
 
 
-with open(r"C:\PythonData\usercheck.txt", "r") as f:
-    pull_user_check = open(r"C:\PythonData\usercheck.txt")
 
 
-print(pull_user_check)
-if " 1" in pull_user_check:
+if check == 1 :
 
     listener = sr.Recognizer()
     engine = pyttsx3.init()

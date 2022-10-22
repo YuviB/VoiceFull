@@ -104,7 +104,7 @@ def delete():
         text_area.insert('end -1 chars', "[ " + str(i + 1) + " ] " + tasks_list[i])
 
 
-# Main Code for UI
+
 if __name__ == "__main__":
     # create a new window
     gui = Tk()
